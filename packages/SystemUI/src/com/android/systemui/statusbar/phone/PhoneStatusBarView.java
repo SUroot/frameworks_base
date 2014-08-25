@@ -65,20 +65,6 @@ public class PhoneStatusBarView extends PanelBar {
         }
         mFullWidthNotifications = mSettingsPanelDragzoneFrac <= 0f;
         mBarTransitions = new PhoneStatusBarTransitions(this);
-
-        mDoubleTapGesture = new GestureDetector(mContext,
-                new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-                if (pm != null) {
-                    pm.goToSleep(e.getEventTime());
-                } else {
-                    Log.d(TAG, "getSystemService returned null PowerManager");
-                }
-                return true;
-            }
-        });
     }
 
     public BarTransitions getBarTransitions() {
@@ -231,11 +217,6 @@ public class PhoneStatusBarView extends PanelBar {
                         event.getActionMasked(), (int) event.getX(), (int) event.getY(),
                         barConsumedEvent ? 1 : 0);
             }
-        }
-
-        if (!mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_disableDoubleTapSleepGesture)) {
-            mDoubleTapGesture.onTouchEvent(event);
         }
 
         return barConsumedEvent || super.onTouchEvent(event);
