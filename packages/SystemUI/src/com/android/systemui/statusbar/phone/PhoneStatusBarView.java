@@ -50,6 +50,10 @@ public class PhoneStatusBarView extends PanelBar {
     private boolean mShouldFade;
     private final PhoneStatusBarTransitions mBarTransitions;
     private GestureDetector mDoubleTapGesture;
+<<<<<<< HEAD
+=======
+    private boolean mDoubeTapGestureEnabled;
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
 
     public PhoneStatusBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,6 +69,23 @@ public class PhoneStatusBarView extends PanelBar {
         }
         mFullWidthNotifications = mSettingsPanelDragzoneFrac <= 0f;
         mBarTransitions = new PhoneStatusBarTransitions(this);
+<<<<<<< HEAD
+=======
+
+        mDoubleTapGesture = new GestureDetector(mContext,
+                new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+                if (pm != null) {
+                    pm.goToSleep(e.getEventTime());
+                } else {
+                    Log.d(TAG, "getSystemService returned null PowerManager");
+                }
+                return true;
+            }
+        });
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
     }
 
     public BarTransitions getBarTransitions() {
@@ -85,6 +106,16 @@ public class PhoneStatusBarView extends PanelBar {
             pv.setRubberbandingEnabled(!mFullWidthNotifications);
         }
         mBarTransitions.init();
+<<<<<<< HEAD
+=======
+
+        if (!mAttached) {
+            mAttached = true;
+            mSettingsObserver = new SettingsObserver(new Handler());
+            mSettingsObserver.observe();
+            mSettingsObserver.onChange(true);
+        }
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
     }
 
     @Override
@@ -271,4 +302,32 @@ public class PhoneStatusBarView extends PanelBar {
         mBar.panelIsAnimating(mFullyOpenedPanel == null);
 
     }
+<<<<<<< HEAD
+=======
+
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            // Observe all users' changes
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_DOUBLE_TAP_GESTURE), false, this,
+                    UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            boolean mConfigDoubleTapGestureEnabled = !mContext.getResources().getBoolean(
+                    com.android.internal.R.bool.config_disableDoubleTapSleepGesture);
+            mDoubeTapGestureEnabled = Settings.System.getIntForUser(
+                mContext.getContentResolver(),
+                Settings.System.STATUSBAR_DOUBLE_TAP_GESTURE,
+                mConfigDoubleTapGestureEnabled ? 1 : 0,
+                UserHandle.USER_CURRENT) == 1;
+        }
+    }
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
 }
