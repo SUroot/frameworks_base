@@ -53,6 +53,9 @@ public class PhoneStatusBarView extends PanelBar {
 <<<<<<< HEAD
 =======
     private boolean mDoubeTapGestureEnabled;
+<<<<<<< HEAD
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
+=======
 >>>>>>> 74f1a60... Double-tap gesture: Code improvement
 
     public PhoneStatusBarView(Context context, AttributeSet attrs) {
@@ -70,7 +73,10 @@ public class PhoneStatusBarView extends PanelBar {
         mFullWidthNotifications = mSettingsPanelDragzoneFrac <= 0f;
         mBarTransitions = new PhoneStatusBarTransitions(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
 
         mDoubleTapGesture = new GestureDetector(mContext,
                 new GestureDetector.SimpleOnGestureListener() {
@@ -303,7 +309,10 @@ public class PhoneStatusBarView extends PanelBar {
 
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
 
     class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
@@ -329,5 +338,8 @@ public class PhoneStatusBarView extends PanelBar {
                 UserHandle.USER_CURRENT) == 1;
         }
     }
+<<<<<<< HEAD
+>>>>>>> 74f1a60... Double-tap gesture: Code improvement
+=======
 >>>>>>> 74f1a60... Double-tap gesture: Code improvement
 }
